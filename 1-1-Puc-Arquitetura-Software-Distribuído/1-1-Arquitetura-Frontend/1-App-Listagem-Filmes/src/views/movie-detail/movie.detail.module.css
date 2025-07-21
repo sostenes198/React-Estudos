@@ -1,0 +1,15 @@
+.movie {
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.movieTitle{
+    text-align: center;
+}
+
+.imgContainer{
+    text-align: center;
+}
