@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme inline {
+	--colog-blog: #ff0000;
+}

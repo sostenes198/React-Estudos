@@ -6,6 +6,7 @@
         <entryData>
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/1-2-curso-react-19-nextjs-15/1-react-vite-typescript-router-hooks-webworker-chronos-pomodoro" />
+            <path value="file://$PROJECT_DIR$/1-2-curso-react-19-nextjs-15/2-next-blog" />
           </resourceRoots>
         </entryData>
       </entry>
