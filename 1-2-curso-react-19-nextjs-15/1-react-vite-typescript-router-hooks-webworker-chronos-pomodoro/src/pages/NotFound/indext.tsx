@@ -1,9 +1,15 @@
 import {MainTemplate} from '../../templates/MainTemplate';
 import {GenericHtml} from '../../components/GenericHtml';
 import {Heading} from '../../components/Heading';
+import {RouterLink} from '../../components/RouterLink';
+import {useEffect} from 'react';
 
 
 export function NotFound() {
+    useEffect(() => {
+        document.title = 'Entenda a Técnica Pomodoro - Chronos Pomodoro';
+    }, []);
+
     return (
         <MainTemplate>
             <GenericHtml>
@@ -15,8 +21,8 @@ export function NotFound() {
                 </p>
                 <p>
                     Mas calma, você não está perdido no espaço (ainda). Dá pra voltar em
-                    segurança para a <a href="/">página principal</a> ou{' '}
-                    <a href="/history">para o histórico</a> — ou pode ficar por aqui e
+                    segurança para a <RouterLink href="/">página principal</RouterLink> ou{' '}
+                    <RouterLink href="/history">para o histórico</RouterLink> — ou pode ficar por aqui e
                     fingir que achou uma página secreta que só os exploradores mais
                     legais conseguem acessar. 🧭✨
                 </p>

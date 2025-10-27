@@ -9,16 +9,20 @@ import {useTaskContext} from '../../contexts/TaskContext/useTaskContext';
 import {getNextCycle} from '../../utils/getNextCycle';
 import {getNextCycleType} from '../../utils/getNextCycleType';
 import {TaskActionType} from '../../contexts/TaskContext/taskActionType';
+import {Tips} from '../Tips';
+import {showMessage} from '../../adapters/showMessage';
 
 export function MainForm() {
     const {state, dispatch} = useTaskContext();
     const taskNameInput = useRef<HTMLInputElement>(null);
+    const lastTaskName = state.tasks[state.tasks.length - 1]?.name || '';
 
     const nextCycle = getNextCycle(state.currentCycle);
     const nextCycleType = getNextCycleType(nextCycle);
 
     function handleCreateNewTask(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        showMessage.dismiss();
 
         if (!taskNameInput.current) {
             return;
@@ -26,7 +30,7 @@ export function MainForm() {
 
         const taskName = taskNameInput.current.value.trim();
         if (taskName === '') {
-            alert('Digite o nome da tarefa');
+            showMessage.warn('Digite o nome da tarefa.');
             return;
         }
 
@@ -44,15 +48,16 @@ export function MainForm() {
             type: TaskActionType.START_TASK, payload: newTask,
         });
 
-
-        // taskNameInput.current.value = '';
+        showMessage.success('Tarefa iniciada com sucesso.');
     }
 
     function handleInterruptTask(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         event.preventDefault();
         dispatch({
-            type: TaskActionType.INTERRUPT_TASK
+            type: TaskActionType.INTERRUPT_TASK,
         });
+        showMessage.dismiss();
+        showMessage.info('Tarefa pausada.');
     }
 
     return (
@@ -67,11 +72,14 @@ export function MainForm() {
                         // value={taskName}
                         // onChange={(event) => setTaskName(event.target.value)} // Forma controlada de usar o input || forma não controlada
                         ref={taskNameInput}
-                        disabled={!!state.activeTask}/>
+                        disabled={!!state.activeTask}
+                        defaultValue={lastTaskName}/>
                 </div>
 
                 <div className="formRow">
-                    <p>Próximo intervalo é de 25 minutos</p>
+                    <p>
+                        <Tips nextCycleType={nextCycleType}/>
+                    </p>
                 </div>
 
                 {state.currentCycle > 0 && (
